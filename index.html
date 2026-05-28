@@ -10,21 +10,36 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#faf4ec; --surface:#fffaf3; --surface-2:#f1e7d8; --line:#e7dccb;
-  --text:#2b2620; --muted:#7c7163; --faint:#b0a290;
-  --accent:#5566e0; --kcal:#c98a2b; --protein:#4caa7d; --calcium:#4f93c4; --danger:#cf5a42;
-  --r:4px; --rc:12px;
+  --bg:#f7f2dd; --surface:#fffdf3; --surface-2:#efe7cf; --line:#e7ddc1;
+  --text:#241f17; --muted:#7a7257; --faint:#ada483;
+  --accent:#007aff; --kcal:#ff9505; --protein:#33cabb; --calcium:#af52de; --danger:#ff2d55; --pink:#e91e63;
+  --r:4px; --rc:4px;
   --shadow:0 1px 2px rgba(43,38,32,.05), 0 6px 16px rgba(43,38,32,.06);
   --shadow-lift:0 5px 12px rgba(43,38,32,.08), 0 18px 38px rgba(43,38,32,.10);
   --safe-top:env(safe-area-inset-top,0px); --safe-bot:env(safe-area-inset-bottom,0px);
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html,body{background:var(--bg);color:var(--text);font-family:"DM Sans",sans-serif;-webkit-font-smoothing:antialiased;overscroll-behavior-y:none}
+html{background:var(--bg)}
+body{background:transparent;color:var(--text);font-family:"DM Sans",sans-serif;-webkit-font-smoothing:antialiased;overscroll-behavior-y:none}
 body{padding-bottom:calc(76px + var(--safe-bot))}
 .mono{font-family:"Space Mono",monospace}
 button{font-family:inherit;color:inherit;cursor:pointer;border:none;background:none}
-.bg{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;background:linear-gradient(180deg,#fbf6ef 0%,#f8efe3 50%,#f2e5d4 100%)}
-.bg svg{position:absolute;left:-20%;bottom:-4%;width:140%;height:80%;display:block}
+.bg{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;background:#fbfbf6}
+.bg svg{position:absolute;left:-20%;top:-12%;width:140%;height:128%;display:block}
+.bg .wv{transform-origin:center;will-change:transform,fill}
+.bg .w1{animation:wv1 26s ease-in-out infinite alternate, hue1 44s ease-in-out infinite alternate}
+.bg .w2{animation:wv2 34s ease-in-out infinite alternate, hue2 56s ease-in-out infinite alternate}
+.bg .w3{animation:wv3 30s ease-in-out infinite alternate, hue3 38s ease-in-out infinite alternate}
+.bg .w4{animation:wv4 40s ease-in-out infinite alternate, hue4 64s ease-in-out infinite alternate}
+@keyframes wv1{from{transform:translate3d(0,0,0)}to{transform:translate3d(-10%,-4%,0)}}
+@keyframes wv2{from{transform:translate3d(0,2%,0)}to{transform:translate3d(9%,-4%,0)}}
+@keyframes wv3{from{transform:translate3d(-5%,0,0)}to{transform:translate3d(8%,-5%,0)}}
+@keyframes wv4{from{transform:translate3d(4%,1%,0)}to{transform:translate3d(-8%,-3%,0)}}
+@keyframes hue1{0%{fill:rgba(0,122,255,.24)}50%{fill:rgba(51,202,187,.26)}100%{fill:rgba(168,230,34,.22)}}
+@keyframes hue2{0%{fill:rgba(51,202,187,.24)}50%{fill:rgba(168,230,34,.22)}100%{fill:rgba(255,149,5,.24)}}
+@keyframes hue3{0%{fill:rgba(255,149,5,.24)}50%{fill:rgba(233,30,99,.24)}100%{fill:rgba(175,82,222,.24)}}
+@keyframes hue4{0%{fill:rgba(175,82,222,.24)}50%{fill:rgba(233,30,99,.24)}100%{fill:rgba(0,122,255,.24)}}
+@media(prefers-reduced-motion:reduce){.bg .wv{animation:none}}
 header{padding:calc(18px + var(--safe-top)) 20px 14px;display:flex;align-items:flex-end;justify-content:space-between;border-bottom:1px solid var(--line)}
 .brand{font-family:"Space Grotesk",sans-serif;font-weight:800;font-size:21px;letter-spacing:-.5px;line-height:1}
 .brand small{display:block;font-family:"Space Mono",monospace;font-weight:400;font-size:10px;letter-spacing:3px;color:var(--accent);margin-top:5px}
@@ -56,14 +71,14 @@ main{max-width:680px;margin:0 auto;padding:16px}
 .meal .name{font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:16px;letter-spacing:-.3px;margin-bottom:9px;padding-right:54px}
 .meal .nums{display:flex;gap:14px;font-family:"Space Mono",monospace;font-size:11px;color:var(--muted)}
 .meal .nums b{color:var(--text);font-weight:700}
-.meal .swap{position:absolute;top:11px;right:11px;color:var(--muted);background:var(--surface);border:1px solid var(--line);padding:6px;border-radius:9px;line-height:0;transition:.15s}
+.meal .swap{position:absolute;top:11px;right:11px;color:var(--muted);background:var(--surface);border:1px solid var(--line);padding:6px;border-radius:var(--r);line-height:0;transition:.15s}
 .meal .swap svg{width:15px;height:15px;display:block}
 .meal .swap:active{transform:scale(.92);border-color:var(--accent);color:var(--accent)}
 @media(hover:hover){.meal .swap:hover{color:var(--accent);border-color:var(--accent)}}
 .m-coffee::before,.m-breakfast::before{background:var(--kcal)} .m-coffee .slot,.m-breakfast .slot{color:var(--kcal)}
 .m-lunch::before{background:var(--protein)} .m-lunch .slot{color:var(--protein)}
 .m-dinner::before{background:var(--accent)} .m-dinner .slot{color:var(--accent)}
-.m-snack::before{background:var(--calcium)} .m-snack .slot{color:var(--calcium)}
+.m-snack::before{background:var(--pink)} .m-snack .slot{color:var(--pink)}
 .aisle{margin-bottom:16px}
 .aisle h3{font-family:"Space Mono",monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);padding-bottom:7px;margin-bottom:4px;border-bottom:1px solid var(--line)}
 .item{display:flex;align-items:center;gap:12px;padding:11px 4px;border-bottom:1px solid var(--surface-2)}
@@ -76,7 +91,7 @@ main{max-width:680px;margin:0 auto;padding:16px}
 .item .qty{font-family:"Space Mono",monospace;font-size:12px;color:var(--muted)}
 .notice{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--kcal);border-radius:var(--r);padding:13px 14px;font-size:12.5px;line-height:1.55;color:var(--muted);margin-bottom:16px}
 .notice b{color:var(--text)}
-.cta{width:100%;background:var(--accent);color:#fff;font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:14px;letter-spacing:.3px;padding:15px;border-radius:var(--rc);box-shadow:0 6px 16px rgba(85,102,224,.24);transition:transform .15s ease,box-shadow .18s ease,filter .15s ease;display:flex;align-items:center;justify-content:center;gap:9px}
+.cta{width:100%;background:var(--accent);color:#fff;font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:14px;letter-spacing:.3px;padding:15px;border-radius:var(--rc);box-shadow:0 6px 16px rgba(0,122,255,.26);transition:transform .15s ease,box-shadow .18s ease,filter .15s ease;display:flex;align-items:center;justify-content:center;gap:9px}
 .cta:active{transform:scale(.985);filter:brightness(1.08)}
 .cta.ghost{background:var(--surface);border:1px solid var(--line);color:var(--text);box-shadow:var(--shadow)}
 .sectitle{font-family:"Space Mono",monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin:4px 2px 12px}
@@ -86,8 +101,8 @@ main{max-width:680px;margin:0 auto;padding:16px}
 nav{position:fixed;left:0;right:0;bottom:0;z-index:20;background:rgba(255,250,243,.82);backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:9px 0 calc(9px + var(--safe-bot));display:flex}
 nav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;color:var(--faint);transition:.15s}
 nav button.on{color:var(--text)}
-nav button.on .ic{border-color:var(--accent);background:rgba(85,102,224,.12)}
-nav .ic{width:36px;height:27px;border:1px solid transparent;border-radius:9px;display:grid;place-items:center;transition:.15s}
+nav button.on .ic{border-color:var(--accent);background:rgba(0,122,255,.12)}
+nav .ic{width:36px;height:27px;border:1px solid transparent;border-radius:var(--r);display:grid;place-items:center;transition:.15s}
 nav .ic svg{width:19px;height:19px;display:block}
 nav .tx{font-family:"Space Mono",monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase}
 .meal{cursor:pointer}
@@ -118,10 +133,11 @@ nav .tx{font-family:"Space Mono",monospace;font-size:9px;letter-spacing:1.5px;te
 </head>
 <body>
 <div class="bg" aria-hidden="true">
-  <svg viewBox="0 0 1440 600" preserveAspectRatio="xMidYMax slice">
-    <path class="wv w1" fill="rgba(85,102,224,0.10)" d="M0,210 C240,140 420,300 720,230 C1020,160 1200,300 1440,220 L1440,600 L0,600 Z"/>
-    <path class="wv w2" fill="rgba(201,138,43,0.10)" d="M0,300 C260,230 470,380 760,310 C1050,240 1230,380 1440,300 L1440,600 L0,600 Z"/>
-    <path class="wv w3" fill="rgba(76,170,125,0.09)" d="M0,390 C250,330 500,470 780,400 C1060,330 1250,460 1440,390 L1440,600 L0,600 Z"/>
+  <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+    <path class="wv w1" fill="rgba(0,122,255,0.24)" d="M0,170 C260,90 470,250 720,180 C1010,100 1210,250 1440,175 L1440,900 L0,900 Z"/>
+    <path class="wv w2" fill="rgba(51,202,187,0.26)" d="M0,340 C260,260 470,420 760,350 C1060,280 1240,410 1440,340 L1440,900 L0,900 Z"/>
+    <path class="wv w3" fill="rgba(255,149,5,0.24)" d="M0,520 C250,450 520,600 800,530 C1080,460 1260,580 1440,510 L1440,900 L0,900 Z"/>
+    <path class="wv w4" fill="rgba(175,82,222,0.24)" d="M0,690 C240,620 520,760 820,690 C1100,630 1270,740 1440,680 L1440,900 L0,900 Z"/>
   </svg>
 </div>
 <header>
