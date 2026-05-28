@@ -13,7 +13,10 @@
   --bg:#faf4ec; --surface:#fffaf3; --surface-2:#f1e7d8; --line:#e7dccb;
   --text:#2b2620; --muted:#7c7163; --faint:#b0a290;
   --accent:#5566e0; --kcal:#c98a2b; --protein:#4caa7d; --calcium:#4f93c4; --danger:#cf5a42;
-  --r:4px; --safe-top:env(safe-area-inset-top,0px); --safe-bot:env(safe-area-inset-bottom,0px);
+  --r:4px; --rc:12px;
+  --shadow:0 1px 2px rgba(43,38,32,.05), 0 6px 16px rgba(43,38,32,.06);
+  --shadow-lift:0 5px 12px rgba(43,38,32,.08), 0 18px 38px rgba(43,38,32,.10);
+  --safe-top:env(safe-area-inset-top,0px); --safe-bot:env(safe-area-inset-bottom,0px);
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{background:var(--bg);color:var(--text);font-family:"DM Sans",sans-serif;-webkit-font-smoothing:antialiased;overscroll-behavior-y:none}
@@ -31,13 +34,13 @@ main{max-width:680px;margin:0 auto;padding:16px}
 .view.active{display:block}
 @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 .daynav{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
-.daynav button{width:46px;height:46px;border:1px solid var(--line);border-radius:var(--r);display:grid;place-items:center;font-size:20px;background:var(--surface);transition:.15s}
+.daynav button{width:46px;height:46px;border:1px solid var(--line);border-radius:var(--rc);box-shadow:var(--shadow);display:grid;place-items:center;font-size:20px;background:var(--surface);transition:.15s}
 .daynav button:active{transform:scale(.94);border-color:var(--accent)}
 .daynav .label{flex:1;text-align:center}
 .daynav .dow{font-family:"Space Grotesk",sans-serif;font-weight:800;font-size:24px;letter-spacing:-.5px}
 .daynav .didx{font-family:"Space Mono",monospace;font-size:10px;color:var(--accent);letter-spacing:2px;margin-top:2px}
 .macros{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:18px}
-.macro{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:11px 12px 12px}
+.macro{background:var(--surface);border:1px solid var(--line);border-radius:var(--rc);box-shadow:var(--shadow);padding:12px 12px 13px}
 .macro .v{font-family:"Space Mono",monospace;font-size:19px;font-weight:700;line-height:1}
 .macro .v span{font-size:11px;color:var(--muted);font-weight:400}
 .macro .k{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin:7px 0 8px}
@@ -47,15 +50,20 @@ main{max-width:680px;margin:0 auto;padding:16px}
 .macro.pro .v{color:var(--protein)} .macro.pro .bar i{background:var(--protein)}
 .macro.cal .v{color:var(--calcium)} .macro.cal .bar i{background:var(--calcium)}
 .macro .tgt{font-family:"Space Mono",monospace;font-size:9px;color:var(--faint);margin-top:6px}
-.meal{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 14px 13px;margin-bottom:10px;position:relative;overflow:hidden}
-.meal::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent);opacity:.7}
+.meal{background:var(--surface);border:1px solid var(--line);border-radius:var(--rc);box-shadow:var(--shadow);padding:15px 15px 14px;margin-bottom:11px;position:relative;overflow:hidden;transition:transform .18s ease,box-shadow .18s ease}
+.meal::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent);opacity:.75}
 .meal .slot{font-family:"Space Mono",monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:5px}
 .meal .name{font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:16px;letter-spacing:-.3px;margin-bottom:9px;padding-right:54px}
 .meal .nums{display:flex;gap:14px;font-family:"Space Mono",monospace;font-size:11px;color:var(--muted)}
 .meal .nums b{color:var(--text);font-weight:700}
-.meal .swap{position:absolute;top:12px;right:12px;font-size:10px;font-family:"Space Mono",monospace;letter-spacing:1px;color:var(--muted);border:1px solid var(--line);padding:5px 8px;border-radius:var(--r);transition:.15s}
-.meal .swap:active{border-color:var(--accent);color:var(--accent)}
-.flat::before{background:var(--kcal)} .flat .slot{color:var(--kcal)}
+.meal .swap{position:absolute;top:11px;right:11px;color:var(--muted);background:var(--surface);border:1px solid var(--line);padding:6px;border-radius:9px;line-height:0;transition:.15s}
+.meal .swap svg{width:15px;height:15px;display:block}
+.meal .swap:active{transform:scale(.92);border-color:var(--accent);color:var(--accent)}
+@media(hover:hover){.meal .swap:hover{color:var(--accent);border-color:var(--accent)}}
+.m-coffee::before,.m-breakfast::before{background:var(--kcal)} .m-coffee .slot,.m-breakfast .slot{color:var(--kcal)}
+.m-lunch::before{background:var(--protein)} .m-lunch .slot{color:var(--protein)}
+.m-dinner::before{background:var(--accent)} .m-dinner .slot{color:var(--accent)}
+.m-snack::before{background:var(--calcium)} .m-snack .slot{color:var(--calcium)}
 .aisle{margin-bottom:16px}
 .aisle h3{font-family:"Space Mono",monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);padding-bottom:7px;margin-bottom:4px;border-bottom:1px solid var(--line)}
 .item{display:flex;align-items:center;gap:12px;padding:11px 4px;border-bottom:1px solid var(--surface-2)}
@@ -68,9 +76,9 @@ main{max-width:680px;margin:0 auto;padding:16px}
 .item .qty{font-family:"Space Mono",monospace;font-size:12px;color:var(--muted)}
 .notice{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--kcal);border-radius:var(--r);padding:13px 14px;font-size:12.5px;line-height:1.55;color:var(--muted);margin-bottom:16px}
 .notice b{color:var(--text)}
-.cta{width:100%;background:var(--accent);color:#fff;font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:14px;letter-spacing:.3px;padding:15px;border-radius:var(--r);transition:.15s;display:flex;align-items:center;justify-content:center;gap:9px}
+.cta{width:100%;background:var(--accent);color:#fff;font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:14px;letter-spacing:.3px;padding:15px;border-radius:var(--rc);box-shadow:0 6px 16px rgba(85,102,224,.24);transition:transform .15s ease,box-shadow .18s ease,filter .15s ease;display:flex;align-items:center;justify-content:center;gap:9px}
 .cta:active{transform:scale(.985);filter:brightness(1.08)}
-.cta.ghost{background:var(--surface);border:1px solid var(--line);color:var(--text)}
+.cta.ghost{background:var(--surface);border:1px solid var(--line);color:var(--text);box-shadow:var(--shadow)}
 .sectitle{font-family:"Space Mono",monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin:4px 2px 12px}
 .row{display:flex;gap:8px;margin-top:12px}
 .row>*{flex:1}
@@ -79,10 +87,19 @@ nav{position:fixed;left:0;right:0;bottom:0;z-index:20;background:rgba(255,250,24
 nav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;color:var(--faint);transition:.15s}
 nav button.on{color:var(--text)}
 nav button.on .ic{border-color:var(--accent);background:rgba(85,102,224,.12)}
-nav .ic{width:34px;height:26px;border:1px solid transparent;border-radius:var(--r);display:grid;place-items:center;font-size:15px}
+nav .ic{width:36px;height:27px;border:1px solid transparent;border-radius:9px;display:grid;place-items:center;transition:.15s}
+nav .ic svg{width:19px;height:19px;display:block}
 nav .tx{font-family:"Space Mono",monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase}
 .meal{cursor:pointer}
-.meal .exp{font-family:"Space Mono",monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:9px}
+.meal:active{transform:scale(.995)}
+@media(hover:hover){.meal:hover{transform:translateY(-2px);box-shadow:var(--shadow-lift)}}
+.meal .exp{display:flex;justify-content:flex-end;color:var(--faint);margin-top:8px}
+.meal .exp svg{width:18px;height:18px;display:block;transition:transform .32s ease}
+.meal.open .exp{color:var(--muted)}
+.meal.open .exp svg{transform:rotate(180deg)}
+@keyframes cardIn{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
+#meals .meal{animation:cardIn .34s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i,0)*55ms)}
+@media(prefers-reduced-motion:reduce){#meals .meal{animation:none}}
 .meal .recipe{max-height:0;overflow:hidden;opacity:0;transition:max-height .35s ease,opacity .25s ease,margin .35s ease}
 .meal.open .recipe{max-height:1600px;opacity:1;margin-top:12px}
 .meal .recipe .rmeta{display:flex;flex-wrap:wrap;gap:14px;font-family:"Space Mono",monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
@@ -151,9 +168,9 @@ nav .tx{font-family:"Space Mono",monospace;font-size:9px;letter-spacing:1.5px;te
   </section>
 </main>
 <nav>
-  <button class="on" data-view="today"><span class="ic">&#9638;</span><span class="tx">Today</span></button>
-  <button data-view="shop"><span class="ic">&#8801;</span><span class="tx">Shop</span></button>
-  <button data-view="gen"><span class="ic">&#10227;</span><span class="tx">Plan</span></button>
+  <button class="on" data-view="today"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="8.4"/><circle cx="12" cy="12" r="3.3"/></svg></span><span class="tx">Today</span></button>
+  <button data-view="shop"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l-1 11a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1L6 8Z"/><path d="M9 8a3 3 0 0 1 6 0"/></svg></span><span class="tx">Shop</span></button>
+  <button data-view="gen"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5.5" width="16" height="14.5" rx="2.6"/><path d="M4 10h16"/><path d="M8.5 3.5v4"/><path d="M15.5 3.5v4"/></svg></span><span class="tx">Plan</span></button>
 </nav>
 <div id="toast"></div>
 <script>
@@ -273,23 +290,25 @@ function renderToday(){
     mk("Calories",t.kcal,"kcal","1200-1400","kcal",(t.kcal/T.kcalMax)*100)+
     mk("Protein",t.p,"g","\u2265107","pro",(t.p/T.protein)*100)+
     mk("Calcium",t.ca,"mg","\u22651000","cal",(t.ca/T.calcium)*100);
-  const card=(m,slot,isFlat)=>{
+  const SWAP_IC='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4l3 3-3 3"/><path d="M19 7H9a4 4 0 0 0-4 4"/><path d="M8 20l-3-3 3-3"/><path d="M5 17h10a4 4 0 0 0 4-4"/></svg>';
+  const CHEV_IC='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
+  const card=(m,slot,isFlat,idx)=>{
     const r=m.recipe||{steps:[]};const op=openSlots.has(slot);
     const ings=m.ing.map(g=>'<li><span>'+g.item+'</span><span class="q">'+fmtQty(g.qty,NUTRI[g.item].unit)+'</span></li>').join('');
     const steps=(r.steps||[]).map(s=>'<li>'+s+'</li>').join('');
     const meta=[r.time?'<span>'+r.time+'</span>':'',r.serves?'<span>serves '+r.serves+'</span>':'',r.src?'<span>'+r.src+'</span>':''].join('');
-    return '<div class="meal'+(isFlat?' flat':'')+(op?' open':'')+'" data-slot="'+slot+'">'
-      +(!isFlat?'<button class="swap" data-slot="'+slot+'">swap</button>':'')
+    return '<div class="meal m-'+slot.toLowerCase()+(op?' open':'')+'" data-slot="'+slot+'" style="--i:'+(idx||0)+'">'
+      +(!isFlat?'<button class="swap" data-slot="'+slot+'" aria-label="swap '+slot+'">'+SWAP_IC+'</button>':'')
       +'<div class="slot">'+slot+'</div><div class="name">'+m.name+'</div>'
       +'<div class="nums"><span><b>'+m.kcal+'</b> kcal</span><span><b>'+m.p+'</b>g P</span><span><b>'+m.ca+'</b>mg Ca</span></div>'
       +'<div class="recipe"><div class="rmeta">'+meta+'</div><div class="rh">Ingredients</div><ul class="ing">'+ings+'</ul><div class="rh">Method</div><ol class="steps">'+steps+'</ol></div>'
-      +'<div class="exp">'+(op?'close \u25b4':'recipe \u25be')+'</div></div>';
+      +'<div class="exp" aria-hidden="true">'+CHEV_IC+'</div></div>';
   };
-  let html=card(DB.fixed,"Coffee",true)+card(day.breakfast,"Breakfast")+card(day.lunch,"Lunch")+card(day.dinner,"Dinner");
-  if(day.snack)html+=card(day.snack,"Snack");
+  let html=card(DB.fixed,"Coffee",true,0)+card(day.breakfast,"Breakfast",false,1)+card(day.lunch,"Lunch",false,2)+card(day.dinner,"Dinner",false,3);
+  if(day.snack)html+=card(day.snack,"Snack",false,4);
   $("#meals").innerHTML=html;
   $("#daysumm").innerHTML='<span>'+(state.day+1)+'/7 \u00b7 '+DOW[state.day]+'</span><span>'+t.kcal+' kcal \u00b7 '+t.p+'g P \u00b7 '+t.ca+'mg Ca</span>';
-  document.querySelectorAll("#meals .meal").forEach(c=>c.onclick=e=>{if(e.target.closest(".swap"))return;const slot=c.dataset.slot;openSlots.has(slot)?openSlots.delete(slot):openSlots.add(slot);const on=c.classList.toggle("open");const ex=c.querySelector(".exp");if(ex)ex.textContent=on?"close \u25b4":"recipe \u25be";});
+  document.querySelectorAll("#meals .meal").forEach(c=>c.onclick=e=>{if(e.target.closest(".swap"))return;const slot=c.dataset.slot;openSlots.has(slot)?openSlots.delete(slot):openSlots.add(slot);c.classList.toggle("open");});
   document.querySelectorAll(".swap").forEach(b=>b.onclick=()=>swapMeal(b.dataset.slot));
 }
 function swapMeal(slot){
