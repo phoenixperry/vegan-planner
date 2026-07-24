@@ -17,8 +17,9 @@ No build step, no dependencies, no backend — `index.html` plus two editable da
 - **Plan** — load one of **three curated starter weeks**, generate a fresh random week, or
   reroll a single day, from the built-in meal database.
 - **Lift** — your training + nutrition plan in one place for the gym: daily targets, the "stop
-  here" floors, the 3-day full-body program, how to get more out of EGYM, the deadlift fix,
-  and the supplement stack (creatine, B12, D3, algal omega-3, calcium/K2).
+  here" floors, a clustered **EGYM partner circuit** (your 8 machines in 4 antagonist stations),
+  a free-weight **bone day**, progression rules, and the supplement stack (creatine, B12, D3,
+  algal omega-3, calcium/K2).
 
 ## How the generator works
 Each day is solved by **exhaustive search**, not random sampling. It enumerates every
